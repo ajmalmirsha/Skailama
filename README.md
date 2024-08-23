@@ -1,1 +1,3 @@
 # Skailama
+
+initializing application
