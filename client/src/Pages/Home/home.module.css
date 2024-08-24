@@ -1,0 +1,38 @@
+.LogoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.LogoWrapper h3 {
+  font-size: 1.5rem;
+}
+
+.Logo {
+    width: 52.33px;
+    height: 52.33px;
+}
+
+.container {
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.icon {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iconWrapper {
+    display: flex;
+    gap: 1rem;
+}
