@@ -1,14 +1,28 @@
-
-
 .container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 60%;
+  align-items: center;
 }
 
 .title {
-  font-family: Roboto;
-  font-size: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 2.5rem;
   font-weight: 700;
   color: rgba(126, 34, 206, 1);
+  text-align: center;
+}
+
+.placeholder {
+  width: 50%;
+  aspect-ratio: 3/2;
+}
+
+.container p {
+  color: rgba(131, 131, 131, 1);
+  font-family: Roboto;
+  font-weight: 400;
+  line-height: 26.94px;
+  text-align: center;
 }

@@ -2,6 +2,11 @@ import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../Layout/Layout";
 import Home from "../Pages/Home/Home";
+import SideBar from "../Layout/SideBar/SideBar";
+import AddPodcast from "../Pages/AddPodcast/AddPodcast";
+import ComingSoon from "../Pages/ComingSoon/ComingSoon";
+import Episode from "../Pages/Episode/Episode";
+
 
 const Login = lazy(() => import("../Pages/Auth/Login"));
 const Register = lazy(() => import("../Pages/Auth/Register"));
@@ -15,6 +20,33 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "podcast/:projectId",
+        element: <SideBar />,
+        errorElement: <SideBar />,
+        children: [
+          {
+            path: "create",
+            element: <ComingSoon />,
+          },
+          {
+            path: "widget",
+            element: <ComingSoon />,
+          },
+          {
+            path: "upgrade",
+            element: <ComingSoon />,
+          },
+          {
+            path: "add-podcast",
+            element: <AddPodcast />,
+          },
+          {
+            path: "episode/:episodeId",
+            element: <Episode />,
+          },
+        ],
       },
     ],
   },

@@ -1,5 +1,5 @@
 const userModel = require("../Models/User");
-const { genJwToken } = require("../Utils/Jwt");
+const { genJwtToken } = require("../Utils/Jwt");
 const { successResponse, errorResponse } = require("../Utils/Response");
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
       if (!req.body?.password) throw "password is required !";
 
       const result = await userModel.create(req.body);
-      const token = genJwToken(result?._id);
+      const token = genJwtToken(result?._id);
       successResponse(res, { token }, "user registered successfully");
     } catch (error) {
       if (error?.errorResponse?.code === 11000) {
@@ -75,7 +75,7 @@ module.exports = {
         throw "Incorrect Password !";
       }
 
-      const token = genJwToken(user?._id);
+      const token = genJwtToken(user?._id);
       successResponse(res, { token }, "user login successfully");
     } catch (error) {
       errorResponse(res, error, "Failed while login");

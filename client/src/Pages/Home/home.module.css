@@ -1,3 +1,9 @@
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .LogoWrapper {
   display: flex;
   align-items: center;
@@ -6,33 +12,166 @@
 
 .LogoWrapper h3 {
   font-size: 1.5rem;
+  color: rgba(126, 34, 206, 1);
 }
 
 .Logo {
-    width: 52.33px;
-    height: 52.33px;
+  width: 52.33px;
+  height: 52.33px;
 }
 
 .container {
-    padding: 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .icon {
-    width: 2rem;
-    height: 2rem;
-    cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .iconWrapper {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.createProjectWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  padding: 5px;
+  border-radius: 15px;
+  border: 1px solid rgba(153, 153, 153, 1);
+  width: 15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.cardWrapper {
+  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+}
+
+.card .icon {
+  background-color: rgba(248, 160, 29, 1);
+  padding: 1.5rem;
+  box-sizing: content-box;
+  border-radius: 7.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+  font-size: 2rem;
+}
+
+.projectTitle {
+  color: rgba(126, 34, 206, 1);
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+
+.epiCount {
+  color: rgba(60, 60, 60, 1);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+
+.time {
+  color: rgba(150, 150, 150, 1);
+  font-weight: 400;
+  font-size: 0.8rem;
+}
+
+.card .content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.header h4 {
+  color: rgba(126, 34, 206, 1);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.modalWrapper {
+  padding: 2rem 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 45%;
+}
+
+.modalWrapper label {
+  display: block;
+  color: #8d8d8d;
+}
+
+input {
+  padding: 1rem;
+  border: 1px solid #8d8d8d;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.modalWrapper p {
+  color: red;
+  text-align: start;
+}
+
+.modalWrapper form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.buttonWrapper button {
+  padding: 0.5rem 1.5rem;
+}
+
+.buttonWrapper .cancelButton {
+  color: red;
+  background-color: transparent;
+}
+
+.buttonWrapper .createButton {
+  background-color: rgb(107, 18, 154);
 }
