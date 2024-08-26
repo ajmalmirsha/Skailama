@@ -13,6 +13,7 @@ import { createEpisode, deleteEpisode, getEpisodes } from "../../Api/Api";
 import { formats, modules } from "../../Utils/config";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import LoadingItem from "../../Components/Loading/Loading";
 
 const AddPodcast = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -25,6 +26,8 @@ const AddPodcast = () => {
   const [projectName, setProjectName] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const [refetch, setRefetch] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [deleteModal, setDeleteModal] = useState("");
 
   const navigate = useNavigate();
@@ -37,6 +40,10 @@ const AddPodcast = () => {
 
   const handleModalClose = () => {
     setModalOpen(false);
+    setData({
+      content: "",
+      name: "",
+    });
   };
 
   const handleContentChange = (html) => {
@@ -53,17 +60,21 @@ const AddPodcast = () => {
   const handleSubmit = async () => {
     try {
       if (!data?.name.trim()) throw nameError;
+      setSubmitLoading(true);
       await createEpisode({ ...data, projectId });
       handleModalClose();
       setRefetch((prev) => !prev);
     } catch (error) {
       setErr(error);
       console.log(error?.message);
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
   const handleFetchData = async () => {
     try {
+      setLoading(true);
       const result = await getEpisodes(projectId);
       setProjectName(result?.data?.data?.projectName);
       setEpisodes(result?.data?.data?.episodes || []);
@@ -72,6 +83,8 @@ const AddPodcast = () => {
       if (error?.response?.data?.error === "Project is not exist") {
         navigate("/");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -145,7 +158,9 @@ const AddPodcast = () => {
       </div>
 
       <div className={style.tableContainer}>
-        {!!episodes?.length ? (
+        {loading ? (
+          <LoadingItem height="40vh" />
+        ) : !!episodes?.length ? (
           <>
             <h3>Your Files</h3>
             <table>
@@ -250,7 +265,9 @@ const AddPodcast = () => {
             </div>
             <div className={style.buttonWrapper}>
               <p className={style.error}>{err}</p>
-              <button onClick={handleSubmit}>Upload</button>
+              <button disabled={submitLoading} onClick={handleSubmit}>
+                Upload
+              </button>
             </div>
           </div>
         </div>

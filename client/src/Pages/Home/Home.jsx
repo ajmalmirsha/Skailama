@@ -10,6 +10,7 @@ import Modal from "../../Components/Modal/Modal";
 import { createProject, getProjects } from "../../Api/Api";
 import { useNavigate } from "react-router-dom";
 import { logOut } from "../../Utils/Auth";
+import LoadingItem from "../../Components/Loading/Loading";
 
 const Home = () => {
   const [projects, setProjects] = useState([]);
@@ -18,6 +19,7 @@ const Home = () => {
   const [err, setErr] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [refetch, setRefetch] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -56,12 +58,16 @@ const Home = () => {
 
   const handleFetchProjectList = async () => {
     try {
+      setLoading(true);
+
       const result = await getProjects();
       if (result?.data?.data) {
         setProjects(result?.data?.data);
       }
     } catch (error) {
       console.log(error?.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +98,11 @@ const Home = () => {
             </div>
           </div>
         </nav>
-        {!!projects?.length ? (
+        {loading ? (
+          <div>
+            <LoadingItem height="80vh" />
+          </div>
+        ) : !!projects?.length ? (
           <div className={style.wrapper}>
             <div className={style.header}>
               <h4>Projects</h4>

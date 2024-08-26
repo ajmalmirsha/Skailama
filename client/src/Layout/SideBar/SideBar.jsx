@@ -39,7 +39,6 @@ const SideBar = ({ children }) => {
     }
   };
 
-  
   useEffect(() => {
     handleResize();
 
@@ -84,7 +83,7 @@ const SideBar = ({ children }) => {
 
           <div>
             <div className={style.itemsWrapper}>
-              <Link to={`/podcast/${projectId}/add-podcast`}>
+              <Link to={projectId ? `/podcast/${projectId}/add-podcast` : "/"}>
                 <PlusIcon />
                 <h4>Add your Podcast(s)</h4>
               </Link>
@@ -122,7 +121,12 @@ const SideBar = ({ children }) => {
             onClick={() => navigate("/profile")}
             className={style.userContainer}
           >
-            <img src={user?.profileImg} />
+            <img
+              src={
+                user?.profileImg ||
+                "https://imgs.search.brave.com/L8g0q2VTDqc0PX3hfAVBBNx6gKLd9JE0Gld8jH4BjvQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNjE5/NDAwODEwL3Bob3Rv/L21yLXdoby5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9aGFy/VHhXX0lSbDA2Q25o/LTRrbkNudHh3WWlx/V282eWlBeEpUcld5/U0ppRT0"
+              }
+            />
             <div className={style.userDataContainer}>
               <h4>{user?.username}</h4>
               <p>{user?.email}</p>

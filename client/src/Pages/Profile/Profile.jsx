@@ -103,7 +103,12 @@ const Profile = () => {
       </div>
       <div className={style.profileWrapper}>
         <div className={style.imageWrapper}>
-          <img src={userData.profileImg} />
+          <img
+            src={
+              userData?.profileImg ||
+              "https://imgs.search.brave.com/L8g0q2VTDqc0PX3hfAVBBNx6gKLd9JE0Gld8jH4BjvQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvNjE5/NDAwODEwL3Bob3Rv/L21yLXdoby5qcGc_/cz02MTJ4NjEyJnc9/MCZrPTIwJmM9aGFy/VHhXX0lSbDA2Q25o/LTRrbkNudHh3WWlx/V282eWlBeEpUcld5/U0ppRT0"
+            }
+          />
           <label htmlFor={"profileImg"}>Change Image</label>
           <input
             onChange={handleFileChange}

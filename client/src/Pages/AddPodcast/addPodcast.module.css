@@ -78,6 +78,10 @@
   gap: 0.5rem;
 }
 
+.inputWrapper input {
+  padding: 1rem;
+}
+
 .contentWrapper {
   display: flex;
   flex-direction: column;
@@ -101,6 +105,10 @@
 
 .buttonWrapper button {
   padding: 1rem 1.8rem;
+}
+
+.buttonWrapper button:disabled {
+  border-color: #3f3f3f;
 }
 
 .closeIcon {
