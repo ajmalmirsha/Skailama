@@ -20,6 +20,7 @@ const Episode = () => {
   const handleFetchEpisodeData = async () => {
     try {
       const result = await getEpisodeById(episodeId);
+      if (!result?.data?.data) return navigate("/");
       setProjectName(result?.data?.data?.projectName);
       setEpisode({
         content: result?.data?.data?.content,
@@ -123,7 +124,10 @@ const Episode = () => {
         ) : (
           <>
             <h4>{episode?.name}</h4>
-            <div style={{display:"flex", flexWrap:"wrap"}} dangerouslySetInnerHTML={{ __html: episode.content }} />
+            <div
+              style={{ display: "flex", flexWrap: "wrap" }}
+              dangerouslySetInnerHTML={{ __html: episode.content }}
+            />
           </>
         )}
       </div>

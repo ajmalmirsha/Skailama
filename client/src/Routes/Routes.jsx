@@ -1,21 +1,25 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../Layout/Layout";
-import Home from "../Pages/Home/Home";
-import SideBar from "../Layout/SideBar/SideBar";
-import AddPodcast from "../Pages/AddPodcast/AddPodcast";
-import ComingSoon from "../Pages/ComingSoon/ComingSoon";
-import Episode from "../Pages/Episode/Episode";
-import Profile from "../Pages/Profile/Profile";
+
+
 
 const Login = lazy(() => import("../Pages/Auth/Login"));
 const Register = lazy(() => import("../Pages/Auth/Register"));
+const Home = lazy(() => import("../Pages/Home/Home"));
+const SideBar = lazy(() => import("../Layout/SideBar/SideBar"));
+const AddPodcast = lazy(() => import("../Pages/AddPodcast/AddPodcast"));
+const ComingSoon = lazy(() => import("../Pages/ComingSoon/ComingSoon"));
+const Episode = lazy(() => import("../Pages/Episode/Episode"));
+const Profile = lazy(() => import("../Pages/Profile/Profile"));
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <Home />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
       {
         path: "podcast/:projectId",
         element: <SideBar />,
-        errorElement: <SideBar />,
+        errorElement: <Error />,
         children: [
           {
             path: "create",
@@ -52,6 +56,7 @@ const router = createBrowserRouter([
           },
           {
             path: "add-podcast",
+            errorElement: <Error/>,
             element: <AddPodcast />,
           },
           {
@@ -64,12 +69,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    errorElement: <Login />,
+    errorElement: <Error />,
     element: <Login />,
   },
   {
     path: "/register",
-    errorElement: <Login />,
+    errorElement: <Error />,
     element: <Register />,
   },
 ]);

@@ -118,6 +118,8 @@
   transform: translateY(-15px);
   opacity: 0;
   animation: slideDown 1s ease-in both;
+  min-width: 578px;
+  overflow-x: auto;
 }
 
 .tableContainer h3 {

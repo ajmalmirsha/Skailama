@@ -68,7 +68,10 @@ const AddPodcast = () => {
       setProjectName(result?.data?.data?.projectName);
       setEpisodes(result?.data?.data?.episodes || []);
     } catch (error) {
-      console.log(error?.message);
+      console.log(error);
+      if (error?.response?.data?.error === "Project is not exist") {
+        navigate("/");
+      }
     }
   };
 
@@ -155,7 +158,7 @@ const AddPodcast = () => {
 
               <tbody>
                 {episodes.map((item, index) => (
-                  <tr>
+                  <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{item?.name}</td>
                     <td>{formatDate(item?.date)}</td>
