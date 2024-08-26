@@ -1,3 +1,8 @@
+/**
+ * List of formats supported by the text editor.
+ *
+ * @constant {string[]} formats
+ */
 export const formats = [
   "header",
   "bold",
@@ -9,6 +14,12 @@ export const formats = [
   "image",
 ];
 
+/**
+ * Configuration for the text editor toolbar.
+ *
+ * @constant {Object} modules
+ * @property {Object[]} toolbar - Toolbar options and their arrangement.
+ */
 export const modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }],

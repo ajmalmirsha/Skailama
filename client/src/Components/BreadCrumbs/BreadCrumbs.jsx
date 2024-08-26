@@ -3,20 +3,35 @@ import bellIcon from "../../assets/bellIcon.svg";
 import logoutIcon from "../../assets/logoutIcon.svg";
 import style from "./breadcrumbs.module.css";
 import { useNavigate } from "react-router-dom";
+import { logOut } from "../../Utils/Auth";
 
 const BreadCrumbs = ({ first, second }) => {
   const navigate = useNavigate();
 
   const handleHomeClick = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
+
+  const handleLogout = () => {
+    logOut(() => {
+      navigate("/login");
+    });
+  };
 
   return (
     <main>
       <div className={style.container}>
-        <img onClick={handleHomeClick} className={style.home} src={HomeIcon} alt="" />
+        <img
+          onClick={handleHomeClick}
+          className={style.home}
+          src={HomeIcon}
+          alt=""
+        />
         <h3>
-          <div onClick={handleHomeClick} className={style.home}>Home Page </div> &nbsp; {first && `/ ${first}`}{" "}
+          <div onClick={handleHomeClick} className={style.home}>
+            Home Page{" "}
+          </div>{" "}
+          &nbsp; {first && `/ ${first}`}{" "}
           {second && (
             <>
               / &nbsp; <span>{second}</span>
@@ -29,7 +44,7 @@ const BreadCrumbs = ({ first, second }) => {
         <div className={style.iconWrapper}>
           <img src={bellIcon} alt="" />
         </div>
-        <div className={style.iconWrapper}>
+        <div onClick={handleLogout} className={style.iconWrapper}>
           <img src={logoutIcon} alt="" />
         </div>
       </div>

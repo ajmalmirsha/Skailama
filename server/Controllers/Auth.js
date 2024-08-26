@@ -69,14 +69,27 @@ module.exports = {
 
       const user = await userModel
         .findOne({ email: req.body?.email })
-        .select("password");
+        .select("email username password");
       if (!user) throw "Email not found !";
       if (!(await user?.comparePassword(req.body?.password))) {
         throw "Incorrect Password !";
       }
 
+      delete user.password;
+
       const token = genJwtToken(user?._id);
-      successResponse(res, { token }, "user login successfully");
+      successResponse(
+        res,
+        {
+          token,
+          user: {
+            username: user?.username,
+            email: user?.email,
+            image: user?.profileImg || "",
+          },
+        },
+        "user login successfully"
+      );
     } catch (error) {
       errorResponse(res, error, "Failed while login");
     }

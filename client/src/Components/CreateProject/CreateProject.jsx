@@ -1,18 +1,10 @@
 import style from "./createProject.module.css";
 import placeholder from "../../assets/placeholder-img-1.svg";
 import plusIcon from "../../assets/plusIcon.svg";
-import Modal from "../Modal/Modal";
-import { useState } from "react";
-import CreateButton from "./CreateButton";
 
 const CreateProject = ({
-  handleSubmit,
   modalOpen,
   handleModalOpen,
-  projectName,
-  handleProjectNameChange,
-  err,
-  handleModalClose,
 }) => {
   return (
     <div className={style.container}>
@@ -24,9 +16,12 @@ const CreateProject = ({
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat. Duis aute irure dolor in reprehenderit in
       </p>
-      {!modalOpen && <CreateButton  onClick={handleModalOpen} />}
-
-    
+      {!modalOpen && (
+        <button className={style.createBtn} onClick={handleModalOpen}>
+          <img src={plusIcon} alt="+" />
+          Create New Project
+        </button>
+      )}
     </div>
   );
 };

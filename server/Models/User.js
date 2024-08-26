@@ -17,6 +17,22 @@ const userSchema = new Schema({
     required: [true, "Password is Required !"],
     select: false,
   },
+  profileImg: {
+    type: String,
+    default: "",
+  },
+  fName: {
+    type: String,
+    default: "",
+  },
+  lName: {
+    type: String,
+    default: "",
+  },
+  phone: {
+    type: Number,
+    default: null,
+  },
 });
 
 userSchema.pre("save", async function (next) {
@@ -27,8 +43,8 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = function (password) {
-  return compare(password, this.password)
-}
+  return compare(password, this.password);
+};
 
 userSchema.plugin(mongoose_delete, { overrideMethods: "all" });
 

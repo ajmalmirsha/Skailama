@@ -41,6 +41,18 @@ export async function getEpisodeById(episodeId) {
   return api.get(`/episode/content/${episodeId}`);
 }
 
-export async function updateEpisode(episodeId, data) {
-  return api.put(`/episode/content/${episodeId}`, data);
+export async function updateEpisode(episodeId, projectId, data) {
+  return api.put(`/episode/content/${episodeId}/${projectId}`, data);
+}
+
+export async function deleteEpisode(episodeId, projectId) {
+  return api.delete(`/episode/content/${episodeId}/${projectId}`);
+}
+
+export async function getUserData() {
+  return api.get(`/user`);
+}
+
+export async function editUserData(data) {
+  return api.put(`/user/edit`, data);
 }

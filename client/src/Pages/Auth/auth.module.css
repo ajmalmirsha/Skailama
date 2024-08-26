@@ -1,10 +1,11 @@
 .container {
   display: flex;
+  overflow-x: hidden;
 }
 
 .container .content {
   background: linear-gradient(231.62deg, #c37eff -26.53%, #3a0b63 117.16%);
-  width: calc(70vw - 2rem);
+  width: calc(60vw - 2rem);
   height: 100vh;
   position: relative;
 }
@@ -14,6 +15,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  animation: popUpAnimation 0.5s ease-in both;
 }
 
 .LogoWhite {
@@ -34,19 +37,19 @@
 .contentWrapper {
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  top: 78.85px;
-  left: 101.33px;
+  top: 6vw;
+  left: 4vw;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  transform: translateX(-60rem);
+  animation: contentAnimation 1.5s ease-in both;
 }
 
 .contentWrapper h5 {
   font-family: "Circular Std", sans-serif;
-  font-size: 90.41px;
+  font-size: clamp(0.5rem, 6vw, 90.41px);
   font-weight: 300;
-  line-height: 98.63px;
-  text-align: left;
 }
 
 .logoText {
@@ -59,7 +62,7 @@
 
 .subText {
   font-family: "Poppins", sans-serif;
-  font-size: 30.9px;
+  font-size: clamp(0.8rem, 3vw, 60px);
   font-weight: 300;
   line-height: 40.17px;
   text-align: left;
@@ -77,6 +80,9 @@ section {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  height: 100vh;
+  opacity: 0;
+  animation: popUpAnimation 1s ease-in both;
 }
 
 section h4 {
@@ -94,6 +100,7 @@ form {
   width: 100%;
   padding: 0px 3rem;
   gap: 1rem;
+  /* max-width: 80vw; */
 }
 
 form input {
@@ -112,6 +119,8 @@ form button {
   border: 1px solid rgba(255, 255, 255, 1);
   border-radius: 7px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 }
 
 form b {
@@ -138,4 +147,34 @@ form p {
 
 .error::placeholder {
   color: red;
+}
+
+@keyframes contentAnimation {
+  to {
+    transform: translate(0);
+  }
+}
+
+@keyframes popUpAnimation {
+  to {
+    opacity: 100%;
+  }
+}
+
+
+
+@media screen and (max-width: 850px) {
+  .container .content {
+    width: calc(50vw - 2rem);
+  }
+
+  .contentWrapper {
+    top: 20vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container .content {
+    display: none;
+  }
 }

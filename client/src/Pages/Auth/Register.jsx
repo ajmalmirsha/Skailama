@@ -2,10 +2,10 @@ import style from "./auth.module.css";
 import waveImg from "../../assets/Wave.svg";
 import LogoWhite from "../../assets/LogoWhite.svg";
 import Logo from "../../assets/Logo.svg";
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../Api/Api";
-import { isLogin } from "../../Utils/isLogin";
+import { isLogin } from "../../Utils/Auth";
 
 const Register = () => {
   const [userCredentials, setUserCredentials] = useState({
@@ -79,14 +79,16 @@ const Register = () => {
         <div className={style.contentWrapper}>
           <div className={style.LogoWrapper}>
             <img src={LogoWhite} className={style.LogoWhite} alt="LogoWhite" />
-            <h3>Ques.AI</h3>
+            <h3 className={style.logoText}>
+              <b>Ques.</b>AI
+            </h3>
           </div>
           <br />
 
           <h5>
             Your podcast <br /> will no longer <br /> be just a hobby.
           </h5>
-          <h3>
+          <h3 className={style.subText}>
             Supercharge Your Distribution <br /> using our AI assistant!
           </h3>
         </div>
@@ -134,8 +136,14 @@ const Register = () => {
           </button>
           <p>
             Already have an account?{" "}
-            <b>
-              <a href="/login">Login</a>
+            <b
+              onClick={() => {
+                startTransition(() => {
+                  navigate("/login");
+                });
+              }}
+            >
+              Login
             </b>
           </p>
         </form>

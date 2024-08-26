@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import style from "./episode.module.css";
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs";
-import { getEpisodeById, updateEpisode } from "../../Api/Api";
+import { deleteEpisode, getEpisodeById, updateEpisode } from "../../Api/Api";
 import leftArrowIcon from "../../assets/leftArrowIcon.svg";
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -48,7 +48,7 @@ const Episode = () => {
     try {
       if (!episodeId) throw "Episode Id is required";
       if (!editText?.name) throw "Episode name is required";
-      await updateEpisode(episodeId, editText);
+      await updateEpisode(episodeId, projectId, editText);
       handleDiscard();
       setRefetch((prev) => !prev);
     } catch (error) {
@@ -123,7 +123,7 @@ const Episode = () => {
         ) : (
           <>
             <h4>{episode?.name}</h4>
-            <div dangerouslySetInnerHTML={{ __html: episode.content }} />
+            <div style={{display:"flex", flexWrap:"wrap"}} dangerouslySetInnerHTML={{ __html: episode.content }} />
           </>
         )}
       </div>

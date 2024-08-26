@@ -1,13 +1,81 @@
 import style from "./sidebar.module.css";
 import Logo from "../../assets/Logo.svg";
-import { NavLink, Outlet, useParams } from "react-router-dom";
-import { PlusIcon } from "../../Utils/Icons";
+import { NavLink, Outlet, useNavigate, useParams } from "react-router-dom";
+import {
+  HelpIcon,
+  PenIcon,
+  PlusIcon,
+  PodcastIcon,
+  UpgradeIcon,
+} from "../../Utils/Icons";
+import caretLeftIcon from "../../assets/caretLeftIcon.svg";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../Context/ContextProvider";
+import { getUserData } from "../../Api/Api";
 
 const SideBar = ({ children }) => {
   const { projectId } = useParams();
+
+  const navigate = useNavigate();
+
+  const { user, setUser } = useContext(Context);
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  const [sideBarShrink, setSideBarShrink] = useState("");
+
+  /**
+   * Updates the sidebar style based on the window width.
+   *
+   * If the width is 992 pixels or less, applies the `"sideBarShrink"` class; otherwise, clears it.
+   *
+   */
+  const handleResize = () => {
+    setWidth(window.innerWidth);
+    if (window.innerWidth <= 992) {
+      setSideBarShrink("sideBarShrink");
+    } else {
+      setSideBarShrink("");
+    }
+  };
+
+  
+  useEffect(() => {
+    handleResize();
+
+    if (window) {
+      window.addEventListener("resize", handleResize);
+    }
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const handleFetchUserData = async () => {
+    try {
+      const result = await getUserData();
+      const data = result?.data?.data;
+      if (!data?.image) {
+        data.image = user?.image;
+      }
+      setUser((prev) => ({ ...prev, ...data }));
+    } catch (error) {
+      console.log(error?.message);
+    }
+  };
+
+  const handleSideBarAction = () => {
+    setSideBarShrink((prev) => (prev ? "" : "sideBarShrink"));
+  };
+
+  useEffect(() => {
+    handleFetchUserData();
+  }, []);
+
   return (
     <div className={style.container}>
-      <aside>
+      <aside className={style?.[sideBarShrink]}>
         <div className={style.topContainer}>
           <div className={style.LogoWrapper}>
             <img src={Logo} className={style.Logo} alt="Logo" />
@@ -18,32 +86,46 @@ const SideBar = ({ children }) => {
             <div className={style.itemsWrapper}>
               <Link to={`/podcast/${projectId}/add-podcast`}>
                 <PlusIcon />
-                Add your Podcast(s)
+                <h4>Add your Podcast(s)</h4>
               </Link>
               <Link to={`/podcast/${projectId}/create`}>
-                Create & Repurpose
+                <PenIcon />
+                <h4>Create & Repurpose</h4>
               </Link>
-              <Link to={`/podcast/${projectId}/widget`}>Podcast Widget</Link>
-              <Link to={`/podcast/${projectId}/upgrade`}>Upgrade</Link>
+              <Link to={`/podcast/${projectId}/widget`}>
+                <PodcastIcon />
+                <h4>Podcast Widget</h4>
+              </Link>
+              <Link to={`/podcast/${projectId}/upgrade`}>
+                <UpgradeIcon />
+                <h4>Upgrade</h4>
+              </Link>
             </div>
           </div>
           <hr />
         </div>
+        <div className={style.elapseWrapper}>
+          <div onClick={handleSideBarAction} className={style.caretWrapper}>
+            <img src={caretLeftIcon} />
+          </div>
+        </div>
         <div>
-          <Link to={`/podcast/${projectId}/help`}>Help</Link>
+          <div className={style.itemsWrapper}>
+            <Link to={`/podcast/${projectId}/help`}>
+              <HelpIcon />
+              <h4>Help</h4>
+            </Link>
+          </div>
           <hr />
           <br />
-          <div className={style.userContainer}>
-            <div
-              style={{
-                width: "50px",
-                height: "50px",
-                backgroundColor: "yellowgreen",
-              }}
-            />
-            <div>
-              <h4>Username</h4>
-              <p>username@gmail.com</p>
+          <div
+            onClick={() => navigate("/profile")}
+            className={style.userContainer}
+          >
+            <img src={user?.profileImg} />
+            <div className={style.userDataContainer}>
+              <h4>{user?.username}</h4>
+              <p>{user?.email}</p>
             </div>
           </div>
         </div>

@@ -2,10 +2,10 @@ import style from "./auth.module.css";
 import waveImg from "../../assets/Wave.svg";
 import LogoWhite from "../../assets/LogoWhite.svg";
 import Logo from "../../assets/Logo.svg";
-import { useEffect, useState } from "react";
-import {login} from "../../Api/Api";
+import { startTransition, useEffect, useState } from "react";
+import { login } from "../../Api/Api";
 import { useNavigate } from "react-router-dom";
-import { isLogin } from "../../Utils/isLogin";
+import { isLogin } from "../../Utils/Auth";
 
 const Login = () => {
   const [userCredentials, setUserCredentials] = useState({
@@ -44,33 +44,31 @@ const Login = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    console.log("hai");
     try {
       setLoading(true);
       if (validate()) {
         const result = await login(userCredentials);
-        const token = result?.data?.data?.token;
+        const { token, user } = result?.data?.data;
         if (token) {
           localStorage.setItem("token", token);
           navigate("/");
         }
       }
     } catch (error) {
-      console.log(error?.response?.data?.message);
+      console.log(error);
       setErr({ msg: error?.response?.data?.error, fields: [] });
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(()=>{
-    if(isLogin()){
-      navigate("/")
+  useEffect(() => {
+    if (isLogin()) {
+      navigate("/");
     }
-  },[])
+  }, []);
 
   return (
     <div className={style.container}>
@@ -121,11 +119,19 @@ const Login = () => {
             onChange={handleValueChange}
           />
           <p className={style.error}>{err?.msg}</p>
-          <button disabled={loading} type="submit">Login</button>
+          <button disabled={loading} type="submit">
+            Login
+          </button>
           <p>
             Don’t have an account?{" "}
-            <b>
-              <a href="/register">Create Account</a>
+            <b
+              onClick={() => {
+                startTransition(() => {
+                  navigate("/register");
+                });
+              }}
+            >
+              Create Account
             </b>
           </p>
         </form>

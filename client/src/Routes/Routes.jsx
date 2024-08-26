@@ -6,7 +6,7 @@ import SideBar from "../Layout/SideBar/SideBar";
 import AddPodcast from "../Pages/AddPodcast/AddPodcast";
 import ComingSoon from "../Pages/ComingSoon/ComingSoon";
 import Episode from "../Pages/Episode/Episode";
-
+import Profile from "../Pages/Profile/Profile";
 
 const Login = lazy(() => import("../Pages/Auth/Login"));
 const Register = lazy(() => import("../Pages/Auth/Register"));
@@ -20,6 +20,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/profile",
+        element: (
+          <SideBar>
+            <Profile />
+          </SideBar>
+        ),
       },
       {
         path: "podcast/:projectId",
@@ -36,6 +44,10 @@ const router = createBrowserRouter([
           },
           {
             path: "upgrade",
+            element: <ComingSoon />,
+          },
+          {
+            path: "help",
             element: <ComingSoon />,
           },
           {
